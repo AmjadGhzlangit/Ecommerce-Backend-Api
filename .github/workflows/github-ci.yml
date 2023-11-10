@@ -32,6 +32,3 @@ jobs:
         touch database/database.sqlite
     - name: PHPUnit tests
       run: ./vendor/bin/phpunit
-      with:
-        configuration: "./phpunit.xml"
-        memory_limit: "256M"
