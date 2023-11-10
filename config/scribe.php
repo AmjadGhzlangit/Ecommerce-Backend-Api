@@ -9,7 +9,7 @@ return [
     /*
      * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => 'ECARD DOCS',
+    'title' => 'ECOMMERCE DOCS',
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
@@ -19,7 +19,7 @@ return [
     /*
      * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url').
      */
-    'base_url' => 'https://dev.alebdaa.net',
+    'base_url' => 'http://localhost',
 
     /*
      * Tell Scribe what routes to generate documentation for.
