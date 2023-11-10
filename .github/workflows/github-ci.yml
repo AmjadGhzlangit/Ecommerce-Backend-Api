@@ -31,4 +31,4 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: PHPUnit tests
-      run: ./vendor/bin/phpunit
+      run: php artisan test
