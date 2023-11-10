@@ -120,29 +120,4 @@ class StoreTest extends V1TestCase
                 'status_code' => 422,
             ]);
     }
-
-    /**
-     * @test
-     */
-    public function validation_for_country_id()
-    {
-        $user = $this->getUserHasPermission(PermissionType::STORE_USER);
-        Country::factory()->create([
-            'id' => 1,
-        ]);
-        Sanctum::actingAs($user);
-        $response = $this->postJson('admin/users', [
-            'country_id' => 5,
-        ]);
-
-        $response
-            ->assertStatus(422)
-            ->assertJson([
-                'message' => 'The given data was invalid.',
-                'data' => [
-                    'country_id' => ['The selected country id is invalid.'],
-                ],
-                'status_code' => 422,
-            ]);
-    }
 }

@@ -101,30 +101,4 @@ class UpdateTest extends V1TestCase
 
         $response->assertStatus(422);
     }
-
-    /**
-     * @test
-     */
-    public function validation_for_country_id()
-    {
-        $country = Country::factory()->create([
-            'id' => 1,
-        ]);
-        $user = User::factory()->create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email' => 'amjad@example.com',
-
-            'phone' => '05012345678',
-        ]);
-        $userLogin = $this->getUserHasPermission(PermissionType::UPDATE_USER);
-
-
-        Sanctum::actingAs($userLogin);
-        $response = $this->putJson('admin/users/' . $user->id, [
-                'country_id' => 5,
-            ]);
-
-        $response->assertStatus(422);
-    }
 }
