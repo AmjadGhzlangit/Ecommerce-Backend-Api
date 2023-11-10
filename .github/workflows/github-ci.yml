@@ -2,9 +2,9 @@ name: Laravel
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   laravel-tests:
@@ -31,7 +31,4 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: PHPUnit tests
-      uses: php-actions/phpunit@v3
-      with:
-        configuration: "./phpunit.xml"
-        memory_limit: "256M"
+      run: ./vendor/bin/phpunit
