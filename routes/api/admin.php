@@ -1,7 +1,6 @@
 <?php
 
 
-use App\Http\API\V1\Controllers\Admin\ContactUs\ContactUsController;
 use App\Http\API\V1\Controllers\Admin\Permission\PermissionController;
 use App\Http\API\V1\Controllers\Admin\Role\RoleController;
 use App\Http\API\V1\Controllers\Admin\User\UserController;

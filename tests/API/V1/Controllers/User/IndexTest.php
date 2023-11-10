@@ -6,7 +6,6 @@ use App\Enums\PermissionType;
 use App\Models\Country;
 use App\Models\Device;
 use App\Models\User;
-use App\Models\UserPaymentMethod;
 use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
 use Tests\API\V1\V1TestCase;
@@ -263,6 +262,7 @@ class IndexTest extends V1TestCase
         $this->assertInstanceOf(Country::class, $user->country);
         $this->assertEquals($country->id, $user->country->id);
     }
+
     /**
      * @test
      */
