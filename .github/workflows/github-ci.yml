@@ -31,7 +31,7 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: PHPUnit tests
-      uses: php-actions/phpunit@v3
+      run: ./vendor/bin/phpunit
       with:
         configuration: "./phpunit.xml"
         memory_limit: "256M"
