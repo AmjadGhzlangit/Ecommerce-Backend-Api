@@ -20,17 +20,22 @@
     </coverage>
     <php>
        <ini name="memory_limit" value="-1"/>
-        <env name="APP_ENV" value="testing"/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
+        <server name="APP_ENV" value="testing"/>
+        <server name="APP_KEY" value="base64:QweJTeCwh5KwiBmtcUam4sKOdkimFkxzfEdfUG93QMk="/>
+        <server name="BCRYPT_ROUNDS" value="4"/>
+        <server name="CACHE_DRIVER" value="array"/>
+        <env name="DB_HOST" value="mysql"/>
+        <env name="LOG_CHANNEL" value="single"/>
         <server name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_DATABASE" value="ECOMMERCE_DB"/>
+        <env name="DB_DATABASE" value="ECARD_DB"/>
         <env name="DB_PORT" value="3306"/>
-         <env name="DB_USERNAME" value="root"/>
+        <env name="DB_USERNAME" value="root"/>
+        <env name="DB_PASSWORD" value="root"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <server name="FILESYSTEM_DRIVER" value="testing"/>
     </php>
     <source>
         <include>
