@@ -1,137 +1,37 @@
-image: lorisleiva/laravel-docker:8.1
+name: Laravel
 
-# Variables
-variables:
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_USER: homestead
-  MYSQL_PASSWORD: secret
-  MYSQL_DATABASE: ECOMMERCE_DB
-  DB_HOST: mysql
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
+jobs:
+  laravel-tests:
 
-stages:
-  - build
-  - test
-  - deploy
+    runs-on: ubuntu-latest
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - vendor/
-
-.init_ssh: &init_ssh |
-  eval $(ssh-agent -s)
-  mkdir -p ~/.ssh
-  chmod 700 ~/.ssh
-  ssh-keyscan -p $SSH_PORT $SSH_IP >> ~/.ssh/known_hosts
-  chmod 644 ~/.ssh/known_hosts
-  chmod 666 /dev/tty
-  ssh-add <(echo "$SSH_PRIVATE_KEY")
-
-.remove_temp_files: &remove_temp_files |
-  rm -rf .scribe
-  rm -rf docker
-  rm -rf storage/mock
-  rm -rf storage/responses
-  rm -rf tests
-  rm .editorconfig
-  rm .env.example
-  rm .gitattributes
-  rm .gitignore
-  rm .gitlab-ci.yml
-  rm .phpstorm.meta.php
-  rm _ide_helper.php
-  rm _ide_helper_models.php
-  rm phpunit.xml
-  rm README.md
-  rm docker-compose.yml
-  rm vite.config.js
-
-composer:
-  stage: build
-  interruptible: true
-  script:
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.example .env
-    - php artisan key:generate
-  artifacts:
-    expire_in: 1 month
-    paths:
-      - vendor/
-      - .env
-  only:
-    - merge_requests
-    - main
-
-lint_test:
-  stage: test
-  interruptible: true
-  services:
-    - name: mysql:8.0.22
-      command: [ "--default-authentication-plugin=mysql_native_password" ]
-  dependencies:
-    - composer
-  script:
-    - ./vendor/bin/duster lint
-    - echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-    - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-    - echo "SET GLOBAL max_connections = 5000;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_1;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_2;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_3;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_4;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_5;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_6;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_7;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "CREATE DATABASE ECOMMERCE_DB_test_8;" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - echo "GRANT ALL ON *.* TO 'homestead'@'%';" | mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
-    - php artisan test --parallel --coverage --min=80.0 --processes=3 --coverage-clover coverage-report.xml
-  artifacts:
-    paths:
-      - ./storage/responses # for documentation
-      - ./storage/logs # for debugging
-      - ./coverage-report.xml # for code coverage
-    expire_in: 1 days
-    when: always
-  only:
-    - merge_requests
-    - main
-
-
-deploy_develop:
-  stage: deploy
-  dependencies:
-    - composer
-  environment:
-    name: development
-    url: http://localhost
-  only:
-    - merge_requests
-  resource_group: development
-  script:
-    - *init_ssh
-    - *remove_temp_files
-    - php vendor/bin/dep deploy -v
-
-deploy_docs:
-  stage: deploy
-  dependencies:
-    - composer
-    - lint_test
-  services:
-    - name: mysql:8.0.22
-      command: [ "--default-authentication-plugin=mysql_native_password" ]
-  environment:
-    name: documentation
-    url: http://localhost
-  only:
-    - merge_requests
-  resource_group: documentation
-  script:
-    - *init_ssh
-    - php artisan enum:docs
-    - php artisan migrate:fresh --seed
-    - php artisan scribe:generate --force --verbose -n --env example | tee output.txt
-    - if grep -q "encountered some errors while processing routes" output.txt ; then exit 1; fi
-    - scp -P $SSH_PORT -v -r -o StrictHostKeyChecking=no docs/* $SSH_DOCS_USER@$SSH_IP:$SSH_DOCS_PUBLIC_DIR
-
+    steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+    - uses: actions/checkout@v3
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Install Dependencies
+      run: composer install --ignore-platform-reqs --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - name: Generate key
+      run: php artisan key:generate
+    - name: Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
+    - name: laravel pint
+      run:  ./vendor/bin/pint --test
+    - name: Create Database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+    - name: PHPUnit tests
+      uses: php-actions/phpunit@v3
+      with:
+        configuration: "./phpunit.xml"
+        memory_limit: "256M"
