@@ -187,7 +187,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Kreait\Laravel\Firebase\ServiceProvider::class,        /*
+               /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
