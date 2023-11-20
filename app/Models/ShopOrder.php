@@ -10,5 +10,5 @@ class ShopOrder extends Model
 {
     use HasFactory;
 
-    protected $casts=['shipping_method'=>Shippingmethed::class];
+    protected $casts = ['shipping_method' => Shippingmethed::class];
 }

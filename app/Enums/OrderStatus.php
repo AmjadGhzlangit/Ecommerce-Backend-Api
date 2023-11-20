@@ -2,14 +2,14 @@
 
 namespace App\Enums;
 
-enum OrderStatus : int
+enum OrderStatus: int
 {
-    case ORDERED=1;
-    
-    case IN_TRANSIT=2;
+    case ORDERED = 1;
 
-    case DELIVERED=3;
+    case IN_TRANSIT = 2;
 
-    case CANCELLED=4;
+    case DELIVERED = 3;
+
+    case CANCELLED = 4;
 
 }

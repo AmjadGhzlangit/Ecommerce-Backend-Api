@@ -9,9 +9,9 @@ class Variation extends Model
 {
     use HasFactory;
 
-    protected $fillable=
+    protected $fillable =
     [
         'category_id',
-        'name'
+        'name',
     ];
 }

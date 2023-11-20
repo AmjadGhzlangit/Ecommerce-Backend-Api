@@ -9,13 +9,13 @@ class ProductItem extends Model
 {
     use HasFactory;
 
-    protected $fillable=
+    protected $fillable =
     [
         'product_id',
         'SKU',
         'qty_in_stock',
         'product_image',
-        'price'
+        'price',
 
     ];
 }

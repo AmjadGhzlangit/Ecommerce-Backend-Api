@@ -9,9 +9,9 @@ class UserAddress extends Model
 {
     use HasFactory;
 
-    protected $fillabil=
+    protected $fillabil =
     [
         'user_id',
-        'adders_id'
+        'adders_id',
     ];
 }

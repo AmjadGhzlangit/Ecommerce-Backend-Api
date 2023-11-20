@@ -9,11 +9,11 @@ class OrderLine extends Model
 {
     use HasFactory;
 
-    protected $fillable=
+    protected $fillable =
     [
         'product_item_id',
         'order_id',
         'qty',
-        'price'
+        'price',
     ];
 }

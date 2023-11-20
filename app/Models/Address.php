@@ -9,7 +9,7 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $fillabil=
+    protected $fillabil =
     [
         'unit_number',
         'street_number',
@@ -17,7 +17,7 @@ class Address extends Model
         'city',
         'region',
         'post_code',
-        'country_id'
+        'country_id',
 
 
     ];
