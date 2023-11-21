@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasApiTokens;
-use Devinweb\LaravelHyperpay\Traits\ManageUserTransactions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasFactory, HasRoles, Notifiable, HasApiTokens, SoftDeletes, ManageUserTransactions;
+    use HasFactory, HasRoles, Notifiable, HasApiTokens, SoftDeletes;
 
     protected string $guard_name = 'api';
 
@@ -96,11 +95,6 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($password);
     }
 
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class, 'customer_id');
-    }
-
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
@@ -119,10 +113,5 @@ class User extends Authenticatable
 
             return $this->image ? self::getDisk()->url($this->image) : null;
         }
-    }
-
-    public function userPaymentMethods()
-    {
-        return $this->hasMany(UserPaymentMethod::class);
     }
 }
