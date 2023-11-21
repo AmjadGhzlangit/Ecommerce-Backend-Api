@@ -9,7 +9,7 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $fillabil =
+    protected $fileable =
     [
         'unit_number',
         'street_number',

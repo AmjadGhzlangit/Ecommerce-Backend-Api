@@ -9,7 +9,7 @@ class UserAddress extends Model
 {
     use HasFactory;
 
-    protected $fillabil =
+    protected $fillable =
     [
         'user_id',
         'adders_id',
