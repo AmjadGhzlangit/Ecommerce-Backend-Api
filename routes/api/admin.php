@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\API\V1\Controllers\Admin\Category\CategoryController;
 use App\Http\API\V1\Controllers\Admin\Permission\PermissionController;
 use App\Http\API\V1\Controllers\Admin\Role\RoleController;
 use App\Http\API\V1\Controllers\Admin\User\UserController;
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
         'permissions' => PermissionController::class,
         'users' => UserController::class,
         'roles' => RoleController::class,
+        'Categories' => CategoryController::class,
     ]);
 
 });
