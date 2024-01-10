@@ -11,7 +11,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
                     'name' => ['required','string'],
-                    'description' => ['required','string','max:255'],
+                    'description' => ['required','string'],
                     'image' => ['image','mimes:png,jpg,jpeg'],
                      'category_id' => [
                         Rule::exists('categories', 'id'),

@@ -16,21 +16,10 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        return $categoriesData = [
-            [
-                'parent_id' => null,
-                'name' => 'Category 1',
-                'description' => 'Description for Category 1',
-            ],
-            [
-                'parent_id' => null,
-                'name' => 'Category 2',
-                'description' => 'Description for Category 2',
-            ],
+        return [
+            'name'=>$this->faker->name,
+            'description'=>$this->faker->paragraph,
+            'parent_id' => null,    
         ];
-
-        foreach ($categoriesData as $categoryData) {
-            Category::create($categoryData);
-        }
     }
 }

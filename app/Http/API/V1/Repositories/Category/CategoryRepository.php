@@ -16,38 +16,5 @@ class CategoryRepository extends BaseRepository
         parent::__construct($model);
     }
 
-    public function index(): PaginatedData
-    {
-        $filters = [
-            AllowedFilter::exact('id'),
-            AllowedFilter::partial('parent_id'),
-            AllowedFilter::partial('name'),
-            AllowedFilter::partial('description'),
-        ];
-        $sorts = [
-            AllowedSort::field('id'),
-            AllowedSort::field('parent_id'),
-            AllowedSort::field('name'),
-            AllowedSort::field('description'),
-        ];
-
-        return parent::filter(Category::class, $filters, $sorts);
-    }
-
-    public function store($data): Category|Model
-    {
-        $category = parent::store($data);
-        $category->save();
-        $category->refresh();
-
-        return $category;
-    }
-
-    public function update(Category|Model $category, $data): Category|Model
-    {
-        $categoryupdetede = parent::update($category, $data);
-        $categoryupdetede->refresh();
-
-        return $categoryupdetede;
-    }
+   
 }

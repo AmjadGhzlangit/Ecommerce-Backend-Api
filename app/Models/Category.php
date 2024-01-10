@@ -11,9 +11,6 @@ class Category extends Model
 
     protected $fillable = ['parent_id', 'name', 'description'];
 
-    protected $attributes = [
-        'parent_id' => null,
-    ];
 
     public function products ()
     {
