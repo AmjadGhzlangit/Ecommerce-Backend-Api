@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Http\API\V1\Controllers\Admin\Category\CategoryController;
 use App\Http\API\V1\Controllers\Admin\Permission\PermissionController;
+use App\Http\API\V1\Controllers\Admin\Product\ProductController;
 use App\Http\API\V1\Controllers\Admin\Role\RoleController;
 use App\Http\API\V1\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,11 +36,17 @@ Route::group(['prefix' => 'admin'], function () {
         });
         Route::get('profile', 'profile');
     });
+
     Route::apiResources([
-        'permissions' => PermissionController::class,
-        'users' => UserController::class,
-        'roles' => RoleController::class,
-    ]);
+         'permissions' => PermissionController::class,
+         'users' => UserController::class,
+         'roles' => RoleController::class,
+         'categories' => CategoryController::class,
+         'products' => ProductController::class,
+]);
+
+
 
 });
+
 

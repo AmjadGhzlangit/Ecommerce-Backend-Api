@@ -33,16 +33,6 @@ trait ApiResponse
         return $this->response($message, new $resource($instance));
     }
 
-    /*  protected function showAll(QueryBuilder $query, $resource, $message = 'success', $code = 200, $perPage = 15): JsonResponse
-      {
-          $per_page = request('per_page', $perPage);
-          $paginator = $query->paginate($per_page);
-          $data = $resource::collection($paginator->items());
-
-          return $this->response($message, $data, ["pagination" => $this->getPaginationMeta($paginator)], $code);
-      }
-  */
-
     protected function showAll($data, $resource, $pagination, $message = 'success', $code = 200): JsonResponse
     {
         $response = $resource::collection($data);
