@@ -44,6 +44,7 @@ class CategoryController extends Controller
     {
         $category_data = $request->validated();
 
+
         $category = $this->categoryRepository->store($category_data);
         return $this->showOne($category, CategoryResource::class, __('The Category added successfully'));
     }

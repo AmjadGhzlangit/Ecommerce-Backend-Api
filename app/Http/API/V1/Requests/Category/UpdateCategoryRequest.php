@@ -2,18 +2,19 @@
 
 namespace App\Http\API\V1\Requests\Category;
 
-use App\Models\Product;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'description' => ['required' | 'max:255'],
+            'name' => ['string'],
+            'description' => ['string','max:255'],
             'parent_id' => [
-                Product::exists('Product', 'id'),
+                Rule::exists('Categories', 'id'),
             ],
 
         ];

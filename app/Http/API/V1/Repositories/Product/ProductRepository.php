@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\API\V1\Repositories\Category;
+namespace App\Http\API\V1\Repositories\Product;
 
 use App\Http\API\V1\Core\PaginatedData;
 use App\Http\API\V1\Repositories\BaseRepository;
-use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 
-class CategoryRepository extends BaseRepository
+class ProductRepository extends BaseRepository
 {
-    public function __construct(Category $model)
+    public function __construct(Product $model)
     {
         parent::__construct($model);
     }
@@ -31,23 +31,23 @@ class CategoryRepository extends BaseRepository
             AllowedSort::field('description'),
         ];
 
-        return parent::filter(Category::class, $filters, $sorts);
+        return parent::filter(Product::class, $filters, $sorts);
     }
 
-    public function store($data): Category|Model
+    public function store($data): Product|Model
     {
-        $category = parent::store($data);
-        $category->save();
-        $category->refresh();
+        $product = parent::store($data);
+        $product->save();
+        $product->refresh();
 
-        return $category;
+        return $product;
     }
 
-    public function update(Category|Model $category, $data): Category|Model
+    public function update(Product|Model $product, $data): Product|Model
     {
-        $categoryupdetede = parent::update($category, $data);
-        $categoryupdetede->refresh();
+        $productupdetede = parent::update($product, $data);
+        $productupdetede->refresh();
 
-        return $categoryupdetede;
+        return $productupdetede;
     }
 }

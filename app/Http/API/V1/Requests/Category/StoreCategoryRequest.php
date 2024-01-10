@@ -2,18 +2,18 @@
 
 namespace App\Http\API\V1\Requests\Category;
 
-use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'description' => ['required' | 'max:255'],
+            'name' => ['required','string','max:255'],
+            'description' => ['required', 'string'],
             'parent_id' => [
-                Product::exists('Product', 'id'),
+                Rule::exists('categories', 'id'),
             ],
         ];
     }
