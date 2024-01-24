@@ -9,7 +9,6 @@ use App\Http\API\V1\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\Api\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-
 /**
  * @group Admin
  * APIs for Admin Management
@@ -26,13 +25,6 @@ class ProductController extends Controller
         $this->authorizeResource(Product::class);
     }
 
-    /**
-     * Show All
-     *
-     * This endpoint lets you show all permissions
-     *
-     * @responseFile storage/responses/admin/permissions/index.json
-     */
     public function index(): JsonResponse
     {
         $paginatedData = $this->productRepository->index();
@@ -43,8 +35,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): JsonResponse
     {
         $product_data = $request->validated();
+        if($request->hasFile('image'))
+        {
+            $imagePath= $this->createFile($request->File('image'),Product::getDisk(),null);
+            $product_data['image']= $imagePath;
 
-
+        }
         $product = $this->productRepository->store($product_data);
         return $this->showOne($product, ProductResource::class, __('The Category added successfully'));
     }
@@ -57,7 +53,11 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
         $product_data = $request->validated();
-
+        if($request->hasFile('image'))
+        {
+            $imagePath= $this->createFile($request->File('image'),Product::getDisk(),null);
+            $product_data['image']= $imagePath;
+        }
         $UpdateProduct = $this->productRepository->update($product, $product_data);
 
         return $this->showOne($UpdateProduct, ProductResource::class, __('The Product updated successfully'));
@@ -69,4 +69,5 @@ class ProductController extends Controller
         $this->productRepository->delete($product);
         return $this->responseMessage(__('The Product deleted successfully'));
     }
+   
 }
