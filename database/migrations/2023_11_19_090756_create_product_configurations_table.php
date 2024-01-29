@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ProductItem;
 use App\Models\VariationOption;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,7 +11,6 @@ return new class extends Migration
     {
         Schema::create('product_configurations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductItem::class);
             $table->foreignIdFor(VariationOption::class);
             $table->timestamps();
         });

@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Category::class => CategoryPolicy::class,
-        Product::class=>ProductPolicy::class,
+        Product::class => ProductPolicy::class,
     ];
 
     /**
