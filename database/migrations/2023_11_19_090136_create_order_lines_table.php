@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ProductItem;
 use App\Models\ShopOrder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,7 +11,6 @@ return new class extends Migration
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductItem::class, 'product_item_id')->unsigned();
             $table->foreignIdFor(ShopOrder::class, 'order_id')->unsigned();
             $table->integer('qty');
             $table->decimal('price', 5);

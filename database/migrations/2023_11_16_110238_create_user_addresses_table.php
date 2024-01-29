@@ -12,6 +12,7 @@ return new class extends Migration
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
+
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Address::class);
             $table->timestamps();
@@ -20,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('user__addresses');
+        Schema::dropIfExists('user_addresses');
     }
 };

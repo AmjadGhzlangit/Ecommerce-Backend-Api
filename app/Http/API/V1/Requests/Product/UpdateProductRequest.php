@@ -12,12 +12,19 @@ class UpdateProductRequest extends FormRequest
     {
         return [
 
+
             'name' => ['string'],
-            'description' => ['string','max:255'],
+            'description' => ['string'],
             'image' => ['image','mimes:png,jpg,jpeg'],
              'category_id' => [
                 Rule::exists('categories', 'id'),
              ],
+             'sku' => ['unique:products'],
+             'qty' => ['integer'],
+             'price' => ['numeric'],
+             'slug' => [
+                'string',
+                'unique:products',],
         ];
 
 

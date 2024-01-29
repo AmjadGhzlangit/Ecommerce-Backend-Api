@@ -12,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['string'],
-            'description' => ['string','max:255'],
+            'description' => ['string'],
             'parent_id' => [
                 Rule::exists('Categories', 'id'),
             ],

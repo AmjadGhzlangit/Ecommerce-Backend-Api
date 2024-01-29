@@ -10,14 +10,6 @@ use App\Http\Resources\Api\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 
-/**
- * @group Admin
- * APIs for Admin Management
- *
- * @subgroup Permissions
- *
- * @subgroupDescription APIs for getting permissions
- */
 class CategoryController extends Controller
 {
     public function __construct(protected CategoryRepository $categoryRepository)
@@ -58,9 +50,9 @@ class CategoryController extends Controller
     {
         $category_data = $request->validated();
 
-        $UpdateCategory = $this->categoryRepository->update($category, $category_data);
+        $update_category = $this->categoryRepository->update($category, $category_data);
 
-        return $this->showOne($UpdateCategory, CategoryResource::class, __('The Category updated successfully'));
+        return $this->showOne($update_category, CategoryResource::class, __('The Category updated successfully'));
 
     }
 
