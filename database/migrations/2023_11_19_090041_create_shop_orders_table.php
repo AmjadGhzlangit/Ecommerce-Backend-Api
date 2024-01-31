@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(OrderLine::class);
-            $table->unsignedTinyInteger('Payment_method_id')->unsigned();
+            $table->string('Payment_method');
             $table->string('Shipping_address');
             $table->integer('order_total');
             $table->string('shipping_method');

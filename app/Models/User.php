@@ -105,6 +105,11 @@ class User extends Authenticatable
         return $this->hasMany(Device::class);
     }
 
+    public function shopOrders()
+    {
+        return $this->hasMany(ShopOrder::class, 'user_id');
+    }
+
     public function imageUrl(): ?string
     {
         if (str_starts_with($this->image, 'http')) {

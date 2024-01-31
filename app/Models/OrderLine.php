@@ -11,9 +11,14 @@ class OrderLine extends Model
 
     protected $fillable =
     [
-        'product_item_id',
+        'product_id',
         'order_id',
         'qty',
         'price',
     ];
+
+    public function shopOrder()
+    {
+        return $this->belongsTo(ShopOrder::class, 'order_id');
+    }
 }

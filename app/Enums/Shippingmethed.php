@@ -4,11 +4,11 @@ namespace App\Enums;
 
 
 
-enum Shippingmethed: int
+enum ShippingMethed: string
 {
-    case STANDARD = 1;
-    case EXPRESS = 2;
-    case PRIORITY = 3;
+    case STANDARD = STANDARD;
+    case EXPRESS = EXPRESS;
+    case PRIORITY = PRIORITY;
 
 }
 

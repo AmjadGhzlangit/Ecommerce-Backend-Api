@@ -13,7 +13,7 @@ class StoreProductRequest extends FormRequest
         return [
                     'name' => ['required','string'],
                     'description' => ['required','string'],
-                    'image' => ['image', 'mimes:png,jpg,jpeg', 'max:2048'], // حجم الصورة حتى 2MB، قابل للتعديل
+                    'image' => ['image', 'mimes:png,jpg,jpeg', 'max:2048'],
                     'category_id' => [
                         Rule::exists('categories', 'id'),
                      ],

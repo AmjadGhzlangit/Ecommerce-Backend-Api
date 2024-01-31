@@ -36,11 +36,14 @@ class Product extends Model
         return Storage::disk('products');
     }
 
+    public function imageUrl(): ?string
+    {
+        return $this->image ? self::getDisk()->url($this->image) : null;
+    }
+
     public function skuOptions(): SkuOptions
     {
         return SkuOptions::make()
-            //->from(['label', 'another_field'])
-            //->target('arbitrary_sku_field_name')
             ->using('_')
             ->forceUnique(false)
             ->generateOnCreate(true)
@@ -53,16 +56,6 @@ class Product extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug')
             ->usingSeparator('-');
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    public function imageUrl(): ?string
-    {
-        return $this->image ? self::getDisk()->url($this->image) : null;
     }
 
     public function category()
